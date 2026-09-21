@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sārthi — Smart AI Tourism Platform | SIH PS 26204</title>
+  <meta name="description" content="Sārthi is an AI-powered smart tourism platform that plans personalised trips, spreads travellers to hidden gems, and channels spending to local hosts — built for Smart India Hackathon PS 26204 (AICTE, Travel & Tourism)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23f2551f'/><path d='M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20z' fill='white'/></svg>" />
+</head>
+<body>
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Sārthi home">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="url(#lg)"/>
+          <path d="M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20l8.8-3.2L20 8z" fill="#fff" opacity=".95"/>
+          <circle cx="20" cy="20" r="2.4" fill="#f2551f"/>
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#ff8a5c"/><stop offset="1" stop-color="#f2551f"/></linearGradient></defs>
+        </svg>
+        S<b>ā</b>rthi
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="planner.html">AI Planner</a>
+        <a class="nav__link" href="explore.html">Explore</a>
+        <a class="nav__link" href="index.html#solution">Solution</a>
+        <a class="nav__link" href="index.html#impact">Impact</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn" data-auth-open aria-label="Sign in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button class="icon-btn" data-cart-open aria-label="Open your trip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </button>
+        <a class="btn btn--primary btn--sm" href="planner.html">Plan a trip</a>
+        <button class="icon-btn nav__toggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero hero--destination">
+    <div class="hero-destination__shade"></div>
+    <div class="hero-destination__copy">
+      <p class="hero-kicker">Discover · Explore · Experience · India</p>
+      <h1>Where do you <em>want to go?</em></h1>
+      <p class="hero-quote">“Not just places,<br />but stories that stay.”</p>
+    </div>
+    <form class="destination-search" data-home-search>
+      <span class="search-symbol" aria-hidden="true">⌕</span>
+      <input type="search" data-home-search-input placeholder="Search your destination..." aria-label="Search your destination" autocomplete="off" />
+      <button type="button" class="search-clear" data-home-search-clear aria-label="Clear search">×</button>
+      <span class="search-divider"></span>
+      <button type="submit" class="location-button" aria-label="Plan trip from current location">⌖ <span>Current Location</span></button>
+      <div class="destination-suggestions" data-home-suggestions></div>
+    </form>
+    <div class="hero-popular">
+      <div class="hero-popular__title"><span>Popular destinations</span><small>Explore India's most loved places</small></div>
+      <div class="hero-popular__rail">
+        <a href="planner.html?dest=jaipur" class="hero-place-card" style="--place-image:url('https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&amp;fit=crop&amp;w=500&amp;q=80')"><b>Jaipur</b><small>Rajasthan</small></a>
+        <a href="planner.html?dest=goa" class="hero-place-card" style="--place-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=500&amp;q=80')"><b>Goa</b><small>Goa</small></a>
+        <a href="planner.html?dest=spiti" class="hero-place-card" style="--place-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&amp;fit=crop&amp;w=500&amp;q=80')"><b>Spiti Valley</b><small>Himachal Pradesh</small></a>
+        <a href="planner.html?dest=andaman" class="hero-place-card" style="--place-image:url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=500&amp;q=80')"><b>Andaman</b><small>Island escape</small></a>
+        <a href="planner.html?dest=munnar" class="hero-place-card" style="--place-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=500&amp;q=80')"><b>Munnar</b><small>Kerala</small></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICE CATEGORIES ============ -->
+  <section class="section section--tint section--services">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Our services</span>
+        <h2 class="section__title">Designed to strengthen every part of the journey</h2>
+      </div>
+      <div class="service-grid" aria-label="Explore focus areas">
+        <a class="service-card" href="services.html?service=hotels">
+          <span class="service-card__icon service-card__icon--hotel">🏨</span>
+          <span class="service-card__label">Hotels &amp; homestays</span>
+        </a>
+        <a class="service-card" href="services.html?service=transport">
+          <span class="service-card__icon service-card__icon--travel">✈️</span>
+          <span class="service-card__label">Travel &amp; transport</span>
+        </a>
+        <a class="service-card" href="services.html?service=guides">
+          <span class="service-card__icon service-card__icon--guide">🧑‍🎨</span>
+          <span class="service-card__label">Local artisans &amp; guides</span>
+        </a>
+        <a class="service-card" href="services.html?service=food">
+          <span class="service-card__icon service-card__icon--food">🍲</span>
+          <span class="service-card__label">Food &amp; culture</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM → SOLUTION ============ -->
+  <section class="section" id="solution">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">The problem we solve</span>
+        <h2 class="section__title">Tourism is booming — but the gains are lopsided</h2>
+        <p class="section__desc">A handful of hotspots overflow while hundreds of beautiful places stay unknown. Planning is fragmented and stressful, and too little of a traveller's spend ever reaches local communities. Sārthi rebalances all three.</p>
+      </div>
+      <div class="problem-list reveal" data-delay="1">
+        <div class="problem-item">
+          <div class="x">✕</div>
+          <div><b>Overcrowding at a few icons</b> — Goa, Manali, Jaipur strain under crowds while gems sit empty.
+            <span class="arrow"> → </span><span class="sol">Sārthi's crowd-balancing engine nudges travellers to nearby hidden gems.</span></div>
+        </div>
+        <div class="problem-item">
+          <div class="x">✕</div>
+          <div><b>Planning is fragmented &amp; slow</b> — hotels, transport and activities are booked across many tabs.
+            <span class="arrow"> → </span><span class="sol">One AI planner builds the whole day-by-day trip and books it in a tap.</span></div>
+        </div>
+        <div class="problem-item">
+          <div class="x">✕</div>
+          <div><b>Local economies are bypassed</b> — spending pools in big chains, not with communities.
+            <span class="arrow"> → </span><span class="sol">Local-first experiences route money to guides, homestays &amp; artisans.</span></div>
+        </div>
+        <div class="problem-item">
+          <div class="x">✕</div>
+          <div><b>Sustainability is an afterthought</b> — travellers lack a simple way to see their footprint.
+            <span class="arrow"> → </span><span class="sol">Every trip gets a transparent GreenTrip score with ways to improve it.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURE PILLARS ============ -->
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">One platform, six innovations</span>
+        <h2 class="section__title">Everything a modern traveller — and the industry — needs</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="card feature reveal">
+          <div class="feature__icon acc-violet">✨</div>
+          <h3>Sārthi AI Planner</h3>
+          <p>Describe your style, budget &amp; days — get a complete, editable day-by-day itinerary with stays, activities and costs in seconds.</p>
+          <span class="tagline">→ Try the planner</span>
+        </div>
+        <div class="card feature reveal" data-delay="1">
+          <div class="feature__icon acc-amber">⚖️</div>
+          <h3>Crowd Balancer</h3>
+          <p>A live crowd index on every destination surfaces under-visited gems and better travel windows — easing pressure on hotspots.</p>
+          <span class="tagline">→ Spread the map</span>
+        </div>
+        <div class="card feature reveal" data-delay="2">
+          <div class="feature__icon">🧳</div>
+          <h3>One-tap Bookings</h3>
+          <p>Stays, transport and experiences bundle into a single itinerary you can review and confirm together — no more twelve tabs.</p>
+          <span class="tagline">→ Unified checkout</span>
+        </div>
+        <div class="card feature reveal">
+          <div class="feature__icon acc-violet">🤝</div>
+          <h3>Local Livelihood Market</h3>
+          <p>Verified local guides, homestays, food hosts and artisans are woven into every plan, so spend reaches real communities.</p>
+          <span class="tagline">→ Travel that gives back</span>
+        </div>
+        <div class="card feature reveal" data-delay="1">
+          <div class="feature__icon acc-green">🌱</div>
+          <h3>GreenTrip Score</h3>
+          <p>Each itinerary gets a transparent sustainability score, with concrete nudges — greener stays, community activities, better seasons.</p>
+          <span class="tagline">→ Lighter footprint</span>
+        </div>
+        <div class="card feature reveal" data-delay="2">
+          <div class="feature__icon acc-teal">🛟</div>
+          <h3>SafeTravel Assist</h3>
+          <p>Season advisories, altitude &amp; safety tips and one-tap local emergency info travel with every plan for peace of mind.</p>
+          <span class="tagline">→ Explore confidently</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">How it works</span>
+        <h2 class="section__title">From a blank map to a booked trip in four steps</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="step__num">1</div><h3>Tell Sārthi your vibe</h3><p>Pick interests, budget, pace and how many days you have — or just say "surprise me".</p></div>
+        <div class="step reveal" data-delay="1"><div class="step__num">2</div><h3>AI drafts your trip</h3><p>A full day-by-day plan appears with stays, local experiences, costs and a GreenTrip score.</p></div>
+        <div class="step reveal" data-delay="2"><div class="step__num">3</div><h3>Tweak &amp; discover</h3><p>Regenerate, swap the city for a calmer hidden gem, and fine-tune until it feels right.</p></div>
+        <div class="step reveal" data-delay="3"><div class="step__num">4</div><h3>Book it together</h3><p>Add the whole itinerary to one cart and confirm — supporting local hosts as you go.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED DESTINATIONS ============ -->
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section__head reveal" style="display:flex;justify-content:space-between;align-items:flex-end;max-width:none;text-align:left">
+        <div>
+          <span class="eyebrow">Featured destinations</span>
+          <h2 class="section__title">Popular icons &amp; the gems beside them</h2>
+        </div>
+        <a class="btn btn--ghost" href="explore.html">See all 16 →</a>
+      </div>
+      <div class="dest-grid" data-featured></div>
+    </div>
+  </section>
+
+  <!-- ============ IMPACT ============ -->
+  <section class="section" id="impact">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Projected impact</span>
+        <h2 class="section__title">Why this moves the needle for Indian tourism</h2>
+        <p class="section__desc">Illustrative projections modelled on our approach — spreading demand, digitising planning and localising spend.</p>
+      </div>
+      <div class="stat-band reveal">
+        <div class="stat-tile"><div class="num">3×</div><div class="lbl">more destinations put on travellers' maps</div></div>
+        <div class="stat-tile"><div class="num">+40%</div><div class="lbl">of trip spend routed to local hosts</div></div>
+        <div class="stat-tile"><div class="num">−25%</div><div class="lbl">crowding relieved at top hotspots</div></div>
+        <div class="stat-tile"><div class="num">10×</div><div class="lbl">faster planning vs. manual research</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h2>Your next journey is one prompt away</h2>
+        <p>Let Sārthi turn "I have five days and love mountains" into a complete, local, low-impact trip.</p>
+        <a class="btn btn--dark btn--lg" href="planner.html" style="background:#fff;color:var(--brand-700)">✨ Start planning free</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="nav__logo" href="index.html">
+            <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect width="40" height="40" rx="11" fill="url(#lgf)"/>
+              <path d="M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20l8.8-3.2L20 8z" fill="#fff" opacity=".95"/>
+              <circle cx="20" cy="20" r="2.4" fill="#f2551f"/>
+              <defs><linearGradient id="lgf" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#ff8a5c"/><stop offset="1" stop-color="#f2551f"/></linearGradient></defs>
+            </svg>
+            S<b>ā</b>rthi
+          </a>
+          <p>An AI-powered smart tourism platform that plans smarter, spreads travellers wider, and boosts local livelihoods.</p>
+          <span class="tag">🇮🇳 Built for Smart India Hackathon · PS 26204</span>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <a href="planner.html">AI Planner</a>
+          <a href="explore.html">Explore</a>
+          <a href="index.html#solution">Solution</a>
+          <a href="index.html#impact">Impact</a>
+        </div>
+        <div>
+          <h4>Themes</h4>
+          <a href="explore.html?interest=heritage">Heritage</a>
+          <a href="explore.html?interest=nature">Nature</a>
+          <a href="explore.html?interest=adventure">Adventure</a>
+          <a href="explore.html?gems=1">Hidden gems</a>
+        </div>
+        <div>
+          <h4>Problem statement</h4>
+          <a>ID · 26204</a>
+          <a>Org · AICTE</a>
+          <a>Category · Software</a>
+          <a>Theme · Travel &amp; Tourism</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span data-year>2026</span> Sārthi — prototype for demonstration. No real bookings or payments.</span>
+        <span>Made with ❤️ for travellers &amp; local communities</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ CART DRAWER + OVERLAY + MODAL ============ -->
+  <div class="overlay" data-overlay></div>
+  <aside class="drawer" data-drawer aria-label="Your trip">
+    <div class="drawer__head">
+      <h3>🧳 Your trip</h3>
+      <button class="icon-btn" data-cart-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body" data-cart-body></div>
+    <div class="drawer__foot" data-cart-foot></div>
+  </aside>
+  <div class="modal" data-modal><div class="modal__panel" data-modal-body></div></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js?v=home-search"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    /* Featured destinations on the landing page (curated mix of icons + gems) */
+    (function () {
+      var D = window.SARTHI_DATA;
+      var ids = ["phawngpui", "spiti", "munnar", "gokarna", "andaman", "meghalaya"];
+      var images = {
+        phawngpui: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85",
+        spiti: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=85",
+        munnar: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85",
+        gokarna: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85",
+        andaman: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=85",
+        meghalaya: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=85"
+      };
+      var grid = document.querySelector("[data-featured]");
+      if (!grid) return;
+      function crowdClass(p) { return p >= 70 ? "high" : p >= 45 ? "mid" : "low"; }
+      grid.innerHTML = ids.map(function (id) {
+        var d = D.byId(id); if (!d) return "";
+        var badge = "";
+        var tags = d.tags.slice(0, 3).map(function (t) { return '<span class="tag">' + t + "</span>"; }).join("");
+        return '<article class="dest-card reveal"><div class="dest-card__media" style="background-image:linear-gradient(180deg,rgba(5,15,25,.08),rgba(5,15,25,.7)),url(\'' + images[d.id] + '\')">' +
+          badge +
+          '<div class="dest-card__loc">' + d.name + "<small>" + d.state + "</small></div></div>" +
+          '<div class="dest-card__body"><p class="text-2" style="font-size:.92rem">' + d.blurb + '</p><div class="tags">' + tags + "</div>" +
+          '<div><div class="meter-row"><span class="label">Crowd level</span><span>' + d.popularity + '%</span></div>' +
+          '<div class="meter meter--' + crowdClass(d.popularity) + '"><div class="meter__fill" style="width:' + d.popularity + '%"></div></div></div>' +
+          '<div class="dest-card__actions"><a class="btn btn--primary btn--sm" href="planner.html?dest=' + d.id + '">Plan this</a>' +
+          '<a class="btn btn--ghost btn--sm" href="explore.html">Details</a></div></div></article>';
+      }).join("");
+      grid.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
+    })();
+  </script>
+</body>
+</html>

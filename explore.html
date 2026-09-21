@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Destinations — Sārthi</title>
+  <meta name="description" content="Discover Indian destinations with Sārthi — filter by interest, budget and region, and use the crowd meter to find peaceful hidden gems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23f2551f'/><path d='M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20z' fill='white'/></svg>" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Sārthi home">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="url(#lg)"/>
+          <path d="M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20l8.8-3.2L20 8z" fill="#fff" opacity=".95"/>
+          <circle cx="20" cy="20" r="2.4" fill="#f2551f"/>
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#ff8a5c"/><stop offset="1" stop-color="#f2551f"/></linearGradient></defs>
+        </svg>
+        S<b>ā</b>rthi
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="planner.html">AI Planner</a>
+        <a class="nav__link" href="explore.html">Explore</a>
+        <a class="nav__link" href="index.html#solution">Solution</a>
+        <a class="nav__link" href="index.html#impact">Impact</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn" data-auth-open aria-label="Sign in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button class="icon-btn" data-cart-open aria-label="Open your trip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </button>
+        <a class="btn btn--primary btn--sm" href="planner.html">Plan a trip</a>
+        <button class="icon-btn nav__toggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ REAL EXPLORE: live search + map + real places (dynamic backend) ============ -->
+  <section class="section" style="padding-top:40px;padding-bottom:20px">
+    <div class="container">
+      <div class="section__head left reveal" style="margin-bottom:22px">
+        <span class="eyebrow">🔎 Live search · real data</span>
+        <h1 class="section__title">Search any place in India — real map, real places</h1>
+        <p class="section__desc">Powered live by OpenStreetMap, Overpass, Open-Meteo &amp; OSRM — genuinely fetched
+          each time, never pre-baked demo data.</p>
+      </div>
+
+      <div class="real-toolbar reveal">
+        <div class="search" style="position:relative;flex:1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <input id="r-search" type="text" placeholder="Try “Amritsar”, “Jaipur”, “Varanasi”…" autocomplete="off" />
+          <div class="r-suggest" data-r-suggest hidden></div>
+        </div>
+        <button type="button" class="btn btn--ghost btn--sm" data-r-geolocate>📍 Near me</button>
+      </div>
+
+      <div class="chips real-cat-chips reveal" data-r-categories style="margin-bottom:16px"></div>
+
+      <div data-r-status class="real-status" hidden></div>
+
+      <div class="real-empty" data-r-empty>
+        <div class="big">🗺️</div>
+        <h3 style="font-family:var(--font-head);margin-bottom:6px">Search a destination above to see real places on
+          the map</h3>
+        <p class="muted">Try "Amritsar", "Jaipur", "Varanasi", "Munnar" — anywhere in India.</p>
+      </div>
+
+      <div class="real-layout" data-r-layout hidden>
+        <div class="real-results">
+          <div class="real-weather" data-r-weather></div>
+          <div class="real-crowd" data-r-crowd></div>
+          <div class="real-rebalance" data-r-rebalance></div>
+          <div class="real-districts" data-r-districts></div>
+          <div class="real-events" data-r-events></div>
+          <p class="result-count" data-r-count></p>
+          <div class="real-cards" data-r-cards></div>
+        </div>
+        <div class="real-map-wrap">
+          <div id="r-map" class="real-map"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CURATED DESTINATION GUIDES (existing SmartScore engine -- unchanged) ============ -->
+  <section class="section" style="padding-top:20px">
+    <div class="container">
+      <div class="section__head left reveal" style="margin-bottom:26px">
+        <span class="eyebrow">🧭 Curated guides</span>
+        <h1 class="section__title">Explore India — beyond the usual</h1>
+        <p class="section__desc">Every card shows a live crowd index so you can dodge the crush and find peaceful gems. Filter by what you love, then send any place straight to the AI planner.</p>
+      </div>
+
+      <!-- toolbar -->
+      <div class="toolbar reveal">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="x-search" type="text" placeholder="Search a place, state or vibe…" aria-label="Search destinations" />
+        </div>
+        <select class="select state-select" id="x-state" aria-label="Select a state to view hidden gems">
+          <option value="">Select a state</option>
+        </select>
+        <select class="select" id="x-region" aria-label="Filter by region"></select>
+        <select class="select" id="x-budget" aria-label="Filter by budget">
+          <option value="">Any budget</option>
+          <option value="budget">Budget-friendly</option>
+          <option value="comfort">Mid-range</option>
+          <option value="luxury">Premium</option>
+        </select>
+        <select class="select" id="x-sort" aria-label="Sort destinations">
+          <option value="recommended">Sort: Recommended</option>
+          <option value="crowd-low">Least crowded first</option>
+          <option value="crowd-high">Most popular first</option>
+          <option value="rating">Highest rated</option>
+          <option value="cost-low">Cheapest first</option>
+          <option value="cost-high">Most premium first</option>
+        </select>
+        <label class="toggle-pill" style="cursor:pointer">
+          <input type="checkbox" id="x-gems" /> 💎 Hidden gems only
+        </label>
+      </div>
+
+      <div class="chips reveal" id="x-interests" style="margin-bottom:22px"></div>
+
+      <p class="result-count" data-result-count></p>
+      <div class="dest-grid" data-dest-grid></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h2>Found somewhere that speaks to you?</h2>
+        <p>Hit “Plan this trip” on any card and Sārthi will build the whole itinerary around it.</p>
+        <a class="btn btn--dark btn--lg" href="planner.html" style="background:#fff;color:var(--brand-700)">✨ Open the AI planner</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom" style="border:none;padding-top:0">
+        <span>© <span data-year>2026</span> Sārthi — prototype for SIH PS 26204. No real bookings or payments.</span>
+        <span><a href="planner.html" style="display:inline">Plan a trip →</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="overlay" data-overlay></div>
+  <aside class="drawer" data-drawer aria-label="Your trip">
+    <div class="drawer__head">
+      <h3>🧳 Your trip</h3>
+      <button class="icon-btn" data-cart-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body" data-cart-body></div>
+    <div class="drawer__foot" data-cart-foot></div>
+  </aside>
+  <div class="modal" data-modal><div class="modal__panel" data-modal-body></div></div>
+
+  <!-- Real place details slide-in panel (used by js/real-explore.js) -->
+  <div class="overlay" data-place-overlay></div>
+  <aside class="place-panel" data-place-panel aria-label="Place details">
+    <div class="place-panel__head">
+      <button class="icon-btn" data-place-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="place-panel__body" data-place-body></div>
+  </aside>
+
+  <script src="js/data.js"></script>
+  <script src="js/hidden-gems.js?v=states-3"></script>
+  <script src="js/main.js"></script>
+  <script src="js/explore.js?v=states-5"></script>
+  <script src="js/config.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/real-explore.js"></script>
+  <script src="js/ai-assistant.js"></script>
+</body>
+</html>

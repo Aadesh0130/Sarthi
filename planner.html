@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Trip Planner — Sārthi</title>
+  <meta name="description" content="Sārthi's AI trip planner builds a personalised, day-by-day Indian itinerary with stays, local experiences, costs and a sustainability score." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23f2551f'/><path d='M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20z' fill='white'/></svg>" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Sārthi home">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="url(#lg)"/>
+          <path d="M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20l8.8-3.2L20 8z" fill="#fff" opacity=".95"/>
+          <circle cx="20" cy="20" r="2.4" fill="#f2551f"/>
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#ff8a5c"/><stop offset="1" stop-color="#f2551f"/></linearGradient></defs>
+        </svg>
+        S<b>ā</b>rthi
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="planner.html">AI Planner</a>
+        <a class="nav__link" href="explore.html">Explore</a>
+        <a class="nav__link" href="index.html#solution">Solution</a>
+        <a class="nav__link" href="index.html#impact">Impact</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn" data-auth-open aria-label="Sign in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button class="icon-btn" data-cart-open aria-label="Open your trip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </button>
+        <a class="btn btn--primary btn--sm" href="explore.html">Explore</a>
+        <button class="icon-btn nav__toggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div class="section__head left reveal" style="margin-bottom:30px">
+        <span class="eyebrow">✨ Sārthi AI Planner</span>
+        <h1 class="section__title">Craft your perfect Indian trip</h1>
+        <p class="section__desc">Set your preferences and let Sārthi assemble a complete day-by-day plan — stays, local experiences, budget and a GreenTrip score included.</p>
+      </div>
+
+      <div class="planner-layout">
+        <!-- FORM -->
+        <form class="planner-form reveal" onsubmit="return false">
+          <h2>Trip preferences</h2>
+          <p class="sub">Adjust anything — regenerate anytime.</p>
+
+          <div class="field">
+            <label for="f-dest">Destination</label>
+            <select id="f-dest"></select>
+          </div>
+
+          <div class="field">
+            <label>Interests <span class="muted" style="font-weight:400">(pick any)</span></label>
+            <div class="chips" id="f-interests"></div>
+          </div>
+
+          <div class="field">
+            <label>Budget style</label>
+            <div class="segmented" id="f-budget">
+              <button type="button" data-val="budget">💸 Budget</button>
+              <button type="button" data-val="comfort" class="is-active">⭐ Comfort</button>
+              <button type="button" data-val="luxury">👑 Luxury</button>
+              <button type="button" data-val="custom">✍️ Custom</button>
+            </div>
+            <div class="budget-input" id="budget-input-wrap" hidden>
+              <label for="f-budget-amount">Your preferred total budget</label>
+              <div class="money-input">
+                <span>₹</span>
+                <input id="f-budget-amount" type="number" min="3000" step="500" value="25000" inputmode="numeric" aria-describedby="budget-help" />
+              </div>
+              <small id="budget-help">Sārthi will keep the plan within this amount.</small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Pace</label>
+            <div class="segmented" id="f-pace">
+              <button type="button" data-val="relaxed">🌿 Relaxed</button>
+              <button type="button" data-val="balanced" class="is-active">⚖️ Balanced</button>
+              <button type="button" data-val="packed">⚡ Packed</button>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:18px;flex-wrap:wrap">
+            <div class="field" style="flex:1;min-width:130px">
+              <label for="f-days-input">Days</label>
+              <div class="stepper" id="f-days">
+                <button type="button" data-dec aria-label="Fewer days">−</button>
+                <input id="f-days-input" type="number" value="4" min="1" max="14" aria-label="Number of days" />
+                <button type="button" data-inc aria-label="More days">+</button>
+              </div>
+            </div>
+            <div class="field" style="flex:1;min-width:130px">
+              <label for="f-trav-input">Travellers</label>
+              <div class="stepper" id="f-travelers">
+                <button type="button" data-dec aria-label="Fewer travellers">−</button>
+                <input id="f-trav-input" type="number" value="2" min="1" max="12" aria-label="Number of travellers" />
+                <button type="button" data-inc aria-label="More travellers">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="toggle-pill" style="width:100%;justify-content:flex-start;cursor:pointer">
+              <input type="checkbox" id="f-avoid" />
+              <span>⚖️ Avoid crowds — prefer hidden gems</span>
+            </label>
+          </div>
+
+          <button class="btn btn--primary btn--block btn--lg" data-generate>✨ Generate my itinerary</button>
+        </form>
+
+        <!-- RESULT -->
+        <div data-itinerary>
+          <div class="itinerary-empty">
+            <div class="big">🗺️</div>
+            <h3 style="font-family:var(--font-head);margin-bottom:8px">Your itinerary will appear here</h3>
+            <p class="muted" style="max-width:360px">Pick your preferences on the left and hit <b>Generate</b>. Not sure where to go? Leave the destination on “Surprise me” and Sārthi will match you to the best fit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REAL TRIP BUILDER (live map, real places you added from Explore) ============ -->
+  <section class="section" style="padding-top:0" data-real-planner>
+    <div class="container">
+      <div class="section__head left reveal" style="margin-bottom:22px">
+        <span class="eyebrow">🗺️ Real trip builder</span>
+        <h2 class="section__title" style="font-size:1.6rem">Places you added from Explore</h2>
+        <p class="section__desc">Real OpenStreetMap places you add on the <a href="explore.html">Explore</a> page
+          land here — organise them by day, see them on a live map, get a real driving route, and check the real
+          forecast.</p>
+      </div>
+
+      <div class="itinerary-empty" data-rp-empty>
+        <div class="big">🧳</div>
+        <h3 style="font-family:var(--font-head);margin-bottom:8px">No real places added yet</h3>
+        <p class="muted" style="max-width:420px">Go to <a href="explore.html">Explore</a>, search a real destination,
+          and hit “Add to trip” on any place — it will appear here.</p>
+      </div>
+
+      <div data-rp-content hidden>
+        <div data-rp-status class="real-status" hidden></div>
+        <div class="real-layout">
+          <div class="real-results">
+            <div class="rp-weather" data-rp-weather></div>
+            <div class="rp-events" data-rp-events></div>
+            <div class="rp-hotels" data-rp-hotels></div>
+            <div data-rp-list></div>
+            <div class="result-actions" style="margin:14px 0">
+              <button type="button" class="btn btn--ghost btn--sm" data-rp-optimize>🧭 Optimize route</button>
+              <button type="button" class="btn btn--primary btn--sm" data-rp-save>💾 Save itinerary</button>
+              <select class="select" data-rp-replan-reason style="width:auto">
+                <option value="weather">🌦️ Weather</option>
+                <option value="preferences_changed">🎯 Preferences changed</option>
+                <option value="time_limited">⏱️ Time limited</option>
+              </select>
+              <button type="button" class="btn btn--outline btn--sm" data-rp-replan disabled>🔄 Replan</button>
+            </div>
+            <p class="real-route-info" data-rp-route hidden></p>
+            <div class="rp-recs" data-rp-recs></div>
+          </div>
+          <div class="real-map-wrap">
+            <div id="p-map" class="real-map"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom" style="border:none;padding-top:0">
+        <span>© <span data-year>2026</span> Sārthi — prototype for SIH PS 26204. No real bookings or payments.</span>
+        <span><a href="explore.html" style="display:inline">Explore destinations →</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="overlay" data-overlay></div>
+  <aside class="drawer" data-drawer aria-label="Your trip">
+    <div class="drawer__head">
+      <h3>🧳 Your trip</h3>
+      <button class="icon-btn" data-cart-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body" data-cart-body></div>
+    <div class="drawer__foot" data-cart-foot></div>
+  </aside>
+  <div class="modal" data-modal><div class="modal__panel" data-modal-body></div></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/config.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/real-planner.js"></script>
+  <script src="js/ai-assistant.js"></script>
+</body>
+</html>

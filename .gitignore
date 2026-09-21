@@ -1,0 +1,16 @@
+# Python / backend
+backend/.venv/
+backend/.venv2/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.pytest_cache/
+backend/*.db
+backend/*.db-journal
+backend/*.db-wal
+backend/*.db-shm
+backend/.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/

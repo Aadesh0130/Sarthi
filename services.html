@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Explorer — Sārthi</title>
+  <meta name="description" content="Choose a service: hotels, transport, food and culture for your trip." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='11' fill='%23f2551f'/><path d='M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20z' fill='white'/></svg>" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Sārthi home">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="url(#lg)"/>
+          <path d="M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20l8.8-3.2L20 8z" fill="#fff" opacity=".95"/>
+          <circle cx="20" cy="20" r="2.4" fill="#f2551f"/>
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#ff8a5c"/><stop offset="1" stop-color="#f2551f"/></linearGradient></defs>
+        </svg>
+        S<b>ā</b>rthi
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="planner.html">AI Planner</a>
+        <a class="nav__link" href="explore.html">Explore</a>
+        <a class="nav__link" href="index.html#solution">Solution</a>
+        <a class="nav__link" href="index.html#impact">Impact</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn" data-auth-open aria-label="Sign in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button class="icon-btn" data-cart-open aria-label="Open your trip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </button>
+        <a class="btn btn--primary btn--sm" href="planner.html">Plan a trip</a>
+        <button class="icon-btn nav__toggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section service-page">
+    <div class="container">
+      <div class="service-intro reveal">
+        <span class="eyebrow">Service explorer</span>
+        <h1 id="serviceTitle">Hotels &amp; homestays</h1>
+        <p id="serviceSubtitle">Choose your destination and find the right stay for your trip.</p>
+      </div>
+
+      <div class="service-shelf reveal">
+        <button class="service-tab is-active" data-service-tab="hotels" type="button">🏨 Hotels</button>
+        <button class="service-tab" data-service-tab="transport" type="button">✈️ Flights &amp; transport</button>
+        <button class="service-tab" data-service-tab="guides" type="button">🧑‍🎨 Artisans &amp; guides</button>
+        <button class="service-tab" data-service-tab="food" type="button">🍲 Food &amp; culture</button>
+      </div>
+
+      <div class="service-panel reveal" id="servicePanel"></div>
+    </div>
+  </main>
+
+  <div class="overlay" data-overlay></div>
+  <aside class="drawer" data-drawer aria-label="Your trip">
+    <div class="drawer__head">
+      <h3>🧳 Your trip</h3>
+      <button class="icon-btn" data-cart-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body" data-cart-body></div>
+    <div class="drawer__foot" data-cart-foot></div>
+  </aside>
+  <div class="modal" data-modal><div class="modal__panel" data-modal-body></div></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/services.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food &amp; Culture - Sārthi</title>
+  <meta name="description" content="Discover traditional dishes, food history, festivals and culinary heritage." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Sārthi home">S<b>ā</b>rthi</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="planner.html">AI Planner</a>
+        <a class="nav__link" href="explore.html">Explore</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle dark mode">☼</button>
+        <button class="icon-btn" data-auth-open aria-label="Sign in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <a class="btn btn--primary btn--sm" href="services.html?service=food">Change destination</a>
+        <button class="icon-btn nav__toggle" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="food-results-page">
+    <div class="container">
+      <div class="food-results-heading">
+        <span class="eyebrow">Food &amp; culture</span>
+        <h1>Explore the food heritage of <span data-food-destination>your destination</span></h1>
+        <p>Every dish carries a story of place, people, seasons and traditions.</p>
+      </div>
+      <div class="food-results-grid" data-food-results></div>
+    </div>
+  </main>
+
+  <div class="modal" data-modal><div class="modal__panel" data-modal-body></div></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/food.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.12.5
+pydantic-settings==2.5.2
+SQLAlchemy==2.0.35
+httpx==0.27.2
+python-dotenv==1.0.1
+python-multipart==0.0.9
+tenacity==9.0.0
+openai==1.51.0
+
+# --- Authentication (merged from the uploaded frontend project's own auth backend) ---
+python-jose[cryptography]==3.3.0
+email-validator==2.2.0
+google-auth==2.35.0
+# Only imported at call time inside sms_service.py when AUTH_DEV_MODE=false
+# AND real Twilio credentials are set -- installed here so that path works
+# out of the box too, not left broken until someone notices at runtime.
+twilio==9.3.7

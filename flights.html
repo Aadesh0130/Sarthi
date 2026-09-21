@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Travel - Sārthi</title>
+  <meta name="description" content="Compare available flights, trains or buses for your selected route and dates." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Sārthi home">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="11" fill="url(#lg)"/><path d="M20 8l3.2 8.8L32 20l-8.8 3.2L20 32l-3.2-8.8L8 20l8.8-3.2L20 8z" fill="#fff"/><defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#ff8a5c"/><stop offset="1" stop-color="#f2551f"/></linearGradient></defs></svg>
+        S<b>ā</b>rthi
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="planner.html">AI Planner</a>
+        <a class="nav__link" href="explore.html">Explore</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle dark mode"><span>☼</span></button>
+        <button class="icon-btn" data-auth-open aria-label="Sign in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <a class="btn btn--primary btn--sm" href="services.html?service=transport">Change search</a>
+        <button class="icon-btn nav__toggle" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flight-page">
+    <div class="container">
+      <div class="flight-heading">
+        <div>
+          <span class="eyebrow">Flight search</span>
+          <h1 data-travel-title>Available travel</h1>
+          <p class="flight-route" data-flight-route>Searching your selected route</p>
+          <div class="flight-search-summary" data-flight-summary></div>
+        </div>
+        <a class="btn btn--ghost" href="services.html?service=transport">Edit search</a>
+      </div>
+      <div class="flight-list" data-flight-list></div>
+    </div>
+  </main>
+
+  <div class="modal" data-modal><div class="modal__panel" data-modal-body></div></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/flights.js"></script>
+</body>
+</html>
